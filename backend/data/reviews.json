@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "cursoId": "1",
+    "tituloCurso": "Instalações Elétricas Residenciais",
+    "professor": "Carlos Mendes",
+    "nota": 5,
+    "comentario": "Excelente! O professor Carlos explica de forma muito didática. Consegui fazer a instalação da minha casa sem precisar de eletricista.",
+    "data": "2024-03-15"
+  },
+  {
+    "id": 2,
+    "cursoId": "5",
+    "tituloCurso": "Hidráulica Predial",
+    "professor": "Marcos Souza",
+    "nota": 4,
+    "comentario": "Muito bom conteúdo. Aprendi bastante sobre instalações hidráulicas. O módulo de detecção de vazamentos é incrível.",
+    "data": "2024-02-20"
+  }
+]

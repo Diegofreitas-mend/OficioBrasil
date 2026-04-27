@@ -1,0 +1,41 @@
+.page {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.pageTitle {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+}
+
+.placeholder {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.placeholderIcon {
+  font-size: 32px;
+  opacity: 0.3;
+}
+
+.placeholderText {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.placeholderSub {
+  font-size: 12px;
+  color: var(--text-dim);
+}

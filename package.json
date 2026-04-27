@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "client",
-    "server"
+    "frontend",
+    "backend"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
-    "build": "npm run build --workspace=client",
-    "start": "npm run start --workspace=server",
-    "lint": "npm run lint --workspace=client"
+    "dev": "concurrently --names \"BACK,FRONT\" --prefix-colors \"green,cyan\" \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "start:backend": "npm run start --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

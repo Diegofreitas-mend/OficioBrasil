@@ -1,0 +1,207 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.banner {
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bannerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1;
+}
+
+.category {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.bannerTitle {
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.bannerProfessor {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.bannerMeta {
+  display: flex;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.metaItem {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.progressSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progressTitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.descSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.descTitle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.lessonsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lessonsTitle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.lessonItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.lessonItem:hover {
+  border-color: var(--border-light);
+  background: var(--bg-card-hover);
+}
+
+.lessonNum {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-weight: 500;
+  min-width: 24px;
+}
+
+.lessonInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lessonTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.lessonDuration {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.lessonArrow {
+  color: var(--text-dim);
+  font-size: 16px;
+}
+
+.buySection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.buyPrice {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.buyLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.buyValue {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.btnBuy {
+  padding: 12px 28px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: background 0.15s;
+}
+
+.btnBuy:hover {
+  background: var(--primary-dark);
+}
+
+.loading, .error {
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.error { color: var(--danger); }

@@ -1,0 +1,35 @@
+:root {
+  /* Backgrounds */
+  --bg:            #111111;
+  --bg-card:       #1a1a1a;
+  --bg-card-hover: #202020;
+  --bg-sidebar:    #111111;
+  --bg-header:     #111111;
+
+  /* Sistema */
+  --primary:       #3b82f6;
+  --primary-dark:  #2563eb;
+  --success:       #22c55e;
+  --danger:        #ef4444;
+
+  /* Texto */
+  --text:          #f0f0f0;
+  --text-muted:    #737373;
+  --text-dim:      #3f3f3f;
+
+  /* Bordas */
+  --border:        #242424;
+  --border-light:  #303030;
+
+  /* Layout */
+  --sidebar-width: 220px;
+  --header-height: 56px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius:    8px;
+  --radius-lg: 10px;
+
+  /* Tipografia */
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+}
