@@ -2,7 +2,6 @@
 
 Plataforma de cursos técnicos profissionalizantes — MVP com dados mockados.
 
-> Convenções e arquitetura do projeto: ver [`CLAUDE.md`](./CLAUDE.md).
 
 ## Estrutura
 
