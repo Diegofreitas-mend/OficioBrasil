@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { api } from '../services/api.js';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import styles from '../styles/components/Header.module.css';
 
@@ -14,12 +12,7 @@ const PAGE_LABELS = {
 export default function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuth();
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    api.get('/user').then(setUser).catch(() => {});
-  }, []);
+  const { student, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -36,12 +29,12 @@ export default function Header() {
       </div>
 
       <div className={styles.right}>
-        {user && (
+        {student && (
           <span className={styles.greeting}>
-            Olá, <strong>{user.nome}</strong>
+            Olá, <strong>{student.nome}</strong>
           </span>
         )}
-        <div className={styles.avatar}>{user ? user.nome[0] : '?'}</div>
+        <div className={styles.avatar}>{student ? student.nome[0] : '?'}</div>
         <button
           type="button"
           className={styles.logoutBtn}

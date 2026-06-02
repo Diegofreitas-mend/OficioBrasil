@@ -58,3 +58,27 @@
   font-size: 13px;
   padding: 24px 0;
 }
+
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filterInput,
+.filterSelect {
+  padding: 9px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+  font-family: inherit;
+}
+
+.filterInput { flex: 1 1 240px; }
+.filterSelect { min-width: 200px; }
+
+.filterInput:focus,
+.filterSelect:focus { border-color: var(--primary); }

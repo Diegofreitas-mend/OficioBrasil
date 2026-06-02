@@ -6,9 +6,14 @@
     "thumbnail": null,
     "descricao": "Aprenda a planejar e executar instalações elétricas residenciais com segurança, seguindo as normas ABNT NBR 5410.",
     "progresso": 65,
-    "preco": 199.90,
+    "preco": 199.9,
     "categoria": "Elétrica",
-    "lessonIds": ["101", "102", "103", "104"],
+    "lessonIds": [
+      "101",
+      "102",
+      "103",
+      "104"
+    ],
     "comprado": true,
     "totalAulas": 4,
     "duracaoTotal": "1h 45min"
@@ -20,9 +25,13 @@
     "thumbnail": null,
     "descricao": "Fundamentos e práticas de sistemas de refrigeração e ar-condicionado residencial e comercial.",
     "progresso": 30,
-    "preco": 249.90,
+    "preco": 249.9,
     "categoria": "Refrigeração",
-    "lessonIds": ["201", "202", "203"],
+    "lessonIds": [
+      "201",
+      "202",
+      "203"
+    ],
     "comprado": true,
     "totalAulas": 3,
     "duracaoTotal": "1h 28min"
@@ -34,9 +43,15 @@
     "thumbnail": null,
     "descricao": "Do zero ao primeiro móvel: técnicas essenciais de marcenaria para iniciantes com foco em projetos práticos.",
     "progresso": 0,
-    "preco": 179.90,
+    "preco": 179.9,
     "categoria": "Marcenaria",
-    "lessonIds": ["301", "302", "303", "304", "305"],
+    "lessonIds": [
+      "301",
+      "302",
+      "303",
+      "304",
+      "305"
+    ],
     "comprado": false,
     "totalAulas": 5,
     "duracaoTotal": "1h 55min"
@@ -48,9 +63,13 @@
     "thumbnail": null,
     "descricao": "Técnicas profissionais de soldagem MIG/MAG para metal, aço carbono e alumínio em diferentes posições.",
     "progresso": 0,
-    "preco": 299.90,
+    "preco": 299.9,
     "categoria": "Soldagem",
-    "lessonIds": ["401", "402", "403"],
+    "lessonIds": [
+      "401",
+      "402",
+      "403"
+    ],
     "comprado": false,
     "totalAulas": 3,
     "duracaoTotal": "1h 20min"
@@ -62,9 +81,14 @@
     "thumbnail": null,
     "descricao": "Sistemas hidráulicos residenciais e prediais: projeto, instalação e manutenção de redes de água e esgoto.",
     "progresso": 85,
-    "preco": 219.90,
+    "preco": 219.9,
     "categoria": "Hidráulica",
-    "lessonIds": ["501", "502", "503", "504"],
+    "lessonIds": [
+      "501",
+      "502",
+      "503",
+      "504"
+    ],
     "comprado": true,
     "totalAulas": 4,
     "duracaoTotal": "1h 44min"
@@ -76,11 +100,44 @@
     "thumbnail": null,
     "descricao": "Diagnóstico e manutenção preventiva e corretiva de veículos de passeio, com foco em sistemas críticos.",
     "progresso": 0,
-    "preco": 329.90,
+    "preco": 329.9,
     "categoria": "Automotiva",
-    "lessonIds": ["601", "602", "603", "604"],
+    "lessonIds": [
+      "601",
+      "602",
+      "603",
+      "604"
+    ],
     "comprado": false,
     "totalAulas": 4,
     "duracaoTotal": "1h 54min"
+  },
+  {
+    "id": "7",
+    "titulo": "Teste de Novo Curso",
+    "professor": "Ronnison",
+    "thumbnail": "",
+    "descricao": "",
+    "progresso": 0,
+    "preco": 200,
+    "categoria": "Encanamento",
+    "lessonIds": [],
+    "comprado": false,
+    "totalAulas": 1,
+    "duracaoTotal": "1h 25min"
+  },
+  {
+    "id": "8",
+    "titulo": "Novo Curso",
+    "professor": "Ronnison Ronaldo",
+    "thumbnail": "https://www.youtube.com/watch?v=wxaXWSVhRXU",
+    "descricao": "",
+    "progresso": 0,
+    "preco": 0,
+    "categoria": "Desenvolvimento Web",
+    "lessonIds": [],
+    "comprado": false,
+    "totalAulas": 1,
+    "duracaoTotal": ""
   }
 ]

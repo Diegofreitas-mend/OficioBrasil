@@ -1,25 +1,54 @@
 import { createContext, useContext, useState, useCallback } from 'react';
+import { api } from '../services/api.js';
 
-const STORAGE_KEY = 'oficio_brasil_auth';
+const TOKEN_KEY = 'oficio_brasil_token';
+const STUDENT_KEY = 'oficio_brasil_student';
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    () => sessionStorage.getItem(STORAGE_KEY) === '1'
-  );
+function readStored() {
+  try {
+    const raw = sessionStorage.getItem(STUDENT_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
 
-  const login = useCallback(() => {
-    sessionStorage.setItem(STORAGE_KEY, '1');
-    setIsAuthenticated(true);
+export function AuthProvider({ children }) {
+  const [student, setStudent] = useState(readStored);
+
+  const persist = useCallback((token, st) => {
+    sessionStorage.setItem(TOKEN_KEY, token);
+    sessionStorage.setItem(STUDENT_KEY, JSON.stringify(st));
+    setStudent(st);
   }, []);
 
+  const login = useCallback(async (email, senha) => {
+    const { token, student: st } = await api.post('/auth/login', { email, senha });
+    persist(token, st);
+    return st;
+  }, [persist]);
+
+  const register = useCallback(async (payload) => {
+    const { token, student: st } = await api.post('/auth/register', payload);
+    persist(token, st);
+    return st;
+  }, [persist]);
+
   const logout = useCallback(() => {
-    sessionStorage.removeItem(STORAGE_KEY);
-    setIsAuthenticated(false);
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(STUDENT_KEY);
+    setStudent(null);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{
+      student,
+      isAuthenticated: !!student,
+      login,
+      register,
+      logout,
+    }}>
       {children}
     </AuthContext.Provider>
   );

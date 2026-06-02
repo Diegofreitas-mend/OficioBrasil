@@ -1,35 +1,79 @@
-:root {
-  /* Backgrounds */
+/* Tokens — default = tema escuro. Overrides por [data-theme="light"]. */
+:root,
+:root[data-theme="dark"] {
   --bg:            #111111;
   --bg-card:       #1a1a1a;
   --bg-card-hover: #202020;
   --bg-sidebar:    #111111;
   --bg-header:     #111111;
 
-  /* Sistema */
   --primary:       #3b82f6;
   --primary-dark:  #2563eb;
   --success:       #22c55e;
   --danger:        #ef4444;
 
-  /* Texto */
   --text:          #f0f0f0;
   --text-muted:    #737373;
   --text-dim:      #3f3f3f;
 
-  /* Bordas */
   --border:        #242424;
   --border-light:  #303030;
 
-  /* Layout */
   --sidebar-width: 220px;
   --header-height: 56px;
 
-  /* Radius */
   --radius-sm: 6px;
   --radius:    8px;
   --radius-lg: 10px;
 
-  /* Tipografia */
   --font-sans: 'DM Sans', system-ui, sans-serif;
+}
+
+:root[data-theme="light"] {
+  --bg:            #ffffff;
+  --bg-card:       #f6f6f6;
+  --bg-card-hover: #ebebeb;
+  --bg-sidebar:    #f6f6f6;
+  --bg-header:     #ffffff;
+
+  --primary:       #2563eb;
+  --primary-dark:  #1d4ed8;
+  --success:       #16a34a;
+  --danger:        #dc2626;
+
+  --text:          #111111;
+  --text-muted:    #5b5b5b;
+  --text-dim:      #b5b5b5;
+
+  --border:        #e5e5e5;
+  --border-light:  #d4d4d4;
+}
+
+/* Alto contraste — reforça texto e bordas em ambos os temas */
+:root[data-high-contrast="1"][data-theme="dark"] {
+  --text:         #ffffff;
+  --text-muted:   #d4d4d4;
+  --border:       #444444;
+  --border-light: #5a5a5a;
+}
+:root[data-high-contrast="1"][data-theme="light"] {
+  --text:         #000000;
+  --text-muted:   #2a2a2a;
+  --border:       #999999;
+  --border-light: #777777;
+}
+
+/* Tamanho de fonte global via zoom — afeta valores em px */
+:root[data-font-size="sm"] body { zoom: 0.9; }
+:root[data-font-size="md"] body { zoom: 1;   }
+:root[data-font-size="lg"] body { zoom: 1.15;}
+
+/* Reduzir animações para usuários sensíveis a movimento */
+:root[data-reduce-motion="1"] *,
+:root[data-reduce-motion="1"] *::before,
+:root[data-reduce-motion="1"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
 }

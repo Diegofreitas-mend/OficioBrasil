@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import styles from '../styles/pages/Login.module.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [erro, setErro] = useState('');
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,10 +16,18 @@ export default function Login() {
 
   const redirectTo = location.state?.from?.pathname ?? '/';
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login();
-    navigate(redirectTo, { replace: true });
+    setErro('');
+    setLoading(true);
+    try {
+      await login(email, senha);
+      navigate(redirectTo, { replace: true });
+    } catch (err) {
+      setErro(err.message || 'Falha ao entrar');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,6 +62,7 @@ export default function Login() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   autoComplete="email"
+                  required
                 />
               </div>
 
@@ -61,9 +72,10 @@ export default function Login() {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="••••••••"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  value={senha}
+                  onChange={e => setSenha(e.target.value)}
                   autoComplete="current-password"
+                  required
                 />
                 <button
                   type="button"
@@ -88,14 +100,20 @@ export default function Login() {
             </div>
 
             <div className={styles.forgotRow}>
-              <a href="#" className={styles.forgotLink}>Esqueceu a senha?</a>
+              <span className={styles.forgotLink} title="Entre em contato com o administrador para redefinir sua senha.">
+                Esqueceu a senha? Contate o admin.
+              </span>
             </div>
 
-            <button type="submit" className={styles.btnEntrar}>Entrar</button>
+            {erro && <p style={{ color: 'var(--danger)', fontSize: 13, marginBottom: 12 }}>{erro}</p>}
+
+            <button type="submit" className={styles.btnEntrar} disabled={loading}>
+              {loading ? 'Entrando…' : 'Entrar'}
+            </button>
           </form>
 
           <p className={styles.registerRow}>
-            Não tem uma conta? <a href="#">Solicitar acesso</a>
+            Não tem uma conta? <Link to="/registro">Criar conta</Link>
           </p>
         </div>
       </main>

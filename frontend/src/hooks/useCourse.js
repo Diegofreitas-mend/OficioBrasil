@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { api } from '../services/api.js';
 
 export function useCourse(id) {
@@ -6,15 +6,21 @@ export function useCourse(id) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const fetchCourse = useCallback(async () => {
     if (!id) return;
     setLoading(true);
     setError(null);
-    api.get(`/courses/${id}`)
-      .then(setCourse)
-      .catch(e => setError(e.message))
-      .finally(() => setLoading(false));
+    try {
+      const data = await api.get(`/courses/${id}`);
+      setCourse(data);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
 
-  return { course, loading, error };
+  useEffect(() => { fetchCourse(); }, [fetchCourse]);
+
+  return { course, loading, error, refetch: fetchCourse };
 }

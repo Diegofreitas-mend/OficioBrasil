@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCourse } from '../hooks/useCourse.js';
+import { api } from '../services/api.js';
 import ProgressBar from '../components/ProgressBar.jsx';
 import { formatPrice } from '../utils/formatters.js';
 import { getCategory } from '../constants/categories.js';
@@ -8,7 +10,9 @@ import styles from '../styles/pages/Course.module.css';
 export default function Course() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { course, loading, error } = useCourse(id);
+  const { course, loading, error, refetch } = useCourse(id);
+  const [enrolling, setEnrolling] = useState(false);
+  const [enrollErr, setEnrollErr] = useState('');
 
   if (loading) return <p className={styles.loading}>Carregando curso...</p>;
   if (error)   return <p className={styles.error}>{error}</p>;
@@ -16,6 +20,21 @@ export default function Course() {
 
   const cat = getCategory(course.categoria);
   const firstLesson = course.lessons?.[0];
+  const nextToStudy = course.lessons?.find((l) => !l.concluida) ?? firstLesson;
+  const allDone = course.lessons?.length > 0 && course.lessons.every((l) => l.concluida);
+
+  const handleEnroll = async () => {
+    setEnrolling(true);
+    setEnrollErr('');
+    try {
+      await api.post(`/courses/${id}/enroll`);
+      await refetch();
+    } catch (e) {
+      setEnrollErr(e.message);
+    } finally {
+      setEnrolling(false);
+    }
+  };
 
   return (
     <div className={styles.page}>
@@ -38,12 +57,16 @@ export default function Course() {
         <div className={styles.progressSection}>
           <span className={styles.progressTitle}>Seu progresso</span>
           <ProgressBar value={course.progresso} />
-          {firstLesson && (
+          {nextToStudy && (
             <button
               className={styles.btnBuy}
-              onClick={() => navigate(`/curso/${id}/aula/${firstLesson.id}`)}
+              onClick={() => navigate(`/curso/${id}/aula/${nextToStudy.id}`)}
             >
-              {course.progresso > 0 ? 'Continuar de onde parou' : 'Começar curso'}
+              {allDone
+                ? 'Revisar curso'
+                : course.progresso > 0
+                ? `Continuar de onde parou — ${nextToStudy.titulo}`
+                : 'Começar curso'}
             </button>
           )}
         </div>
@@ -70,6 +93,7 @@ export default function Course() {
               <span className={styles.lessonTitle}>{lesson.titulo}</span>
               <span className={styles.lessonDuration}>{lesson.duracao}</span>
             </div>
+            {lesson.concluida && <span style={{ color: 'var(--success)', fontSize: 12, marginRight: 8 }}>✓</span>}
             {course.comprado && <span className={styles.lessonArrow}>›</span>}
           </div>
         ))}
@@ -82,7 +106,16 @@ export default function Course() {
             <span className={styles.buyLabel}>Valor do curso</span>
             <span className={styles.buyValue}>{formatPrice(course.preco)}</span>
           </div>
-          <button className={styles.btnBuy}>Adquirir Curso</button>
+          <button
+            className={styles.btnBuy}
+            onClick={handleEnroll}
+            disabled={enrolling}
+          >
+            {enrolling ? 'Processando…' : 'Adquirir Curso'}
+          </button>
+          {enrollErr && (
+            <p style={{ color: 'var(--danger)', fontSize: 13, marginTop: 8 }}>{enrollErr}</p>
+          )}
         </div>
       )}
     </div>

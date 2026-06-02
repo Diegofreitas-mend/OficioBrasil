@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark" data-font-size="md">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <script>
+      // Aplica preferências salvas antes do React montar (evita flash)
+      try {
+        var s = JSON.parse(localStorage.getItem('oficio_settings') || '{}');
+        var html = document.documentElement;
+        if (s.theme) html.setAttribute('data-theme', s.theme);
+        if (s.fontSize) html.setAttribute('data-font-size', s.fontSize);
+        if (s.highContrast) html.setAttribute('data-high-contrast', '1');
+        if (s.reduceMotion) html.setAttribute('data-reduce-motion', '1');
+      } catch (_) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
