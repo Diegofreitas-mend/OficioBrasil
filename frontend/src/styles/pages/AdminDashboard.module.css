@@ -107,3 +107,9 @@
 .error {
   color: var(--danger);
 }
+
+/* ===== Responsivo ===== */
+@media (max-width: 560px) {
+  .head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .cardValue { font-size: 24px; }
+}

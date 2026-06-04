@@ -82,3 +82,14 @@
 
 .filterInput:focus,
 .filterSelect:focus { border-color: var(--primary); }
+
+/* ===== Responsivo ===== */
+@media (max-width: 1024px) {
+  .gridAll { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .page { gap: 32px; }
+  .gridAll, .gridMy { grid-template-columns: 1fr; }
+  .sectionTitle { font-size: 16px; }
+  .filterInput, .filterSelect { flex: 1 1 100%; min-width: 0; width: 100%; }
+}

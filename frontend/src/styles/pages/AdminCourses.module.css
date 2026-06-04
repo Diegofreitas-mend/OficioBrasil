@@ -149,3 +149,11 @@
 }
 
 .error { color: var(--danger); }
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  .head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .search { max-width: 100%; }
+  .tableWrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table { min-width: 560px; }
+}

@@ -12,7 +12,7 @@ const PAGE_LABELS = {
   '/configuracoes': 'Configurações',
 };
 
-export default function Header() {
+export default function Header({ onMenu }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { student, logout } = useAuth();
@@ -50,9 +50,23 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.left}>
-        <span className={styles.breadcrumb}>Ofício Brasil</span>
-        <span className={styles.pageTitle}>{pageLabel}</span>
+      <div className={styles.leftZone}>
+        <button
+          type="button"
+          className={styles.menuBtn}
+          onClick={onMenu}
+          aria-label="Abrir menu"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div className={styles.left}>
+          <span className={styles.breadcrumb}>Ofício Brasil</span>
+          <span className={styles.pageTitle}>{pageLabel}</span>
+        </div>
       </div>
 
       <div className={styles.right} ref={wrapRef}>

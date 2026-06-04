@@ -211,3 +211,15 @@
   from { opacity: 0; transform: translateY(8px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0)   scale(1); }
 }
+
+/* ===== Responsivo ===== */
+.modal { max-height: calc(100svh - 40px); overflow-y: auto; }
+
+@media (max-width: 480px) {
+  .overlay { padding: 12px; }
+  .modal { padding: 18px; }
+  .row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .rowValue { text-align: left; }
+  .actions { flex-direction: column-reverse; }
+  .btnGhost { width: 100%; }
+}

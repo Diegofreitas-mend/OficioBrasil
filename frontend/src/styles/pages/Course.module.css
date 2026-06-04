@@ -209,3 +209,14 @@
 }
 
 .error { color: var(--danger); }
+
+/* ===== Responsivo ===== */
+@media (max-width: 640px) {
+  .page { gap: 22px; }
+  .banner { padding: 20px; min-height: 140px; flex-direction: column; align-items: flex-start; }
+  .bannerTitle { font-size: 24px; }
+  .buySection { flex-direction: column; align-items: stretch; gap: 14px; }
+  .buyValue { font-size: 24px; }
+  .btnBuy { width: 100%; padding: 13px; }
+  .descTitle, .lessonsTitle { font-size: 16px; }
+}

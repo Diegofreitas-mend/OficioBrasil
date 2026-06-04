@@ -44,9 +44,15 @@ const NAV = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ open = false, onClose }) {
   return (
-    <aside className={styles.sidebar}>
+    <>
+      <div
+        className={`${styles.backdrop} ${open ? styles.backdropShow : ''}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <aside className={`${styles.sidebar} ${open ? styles.open : ''}`}>
       <div className={styles.logo}>
         <div className={styles.logoMark}>O</div>
         <div className={styles.logoText}>
@@ -74,6 +80,7 @@ export default function Sidebar() {
       <div className={styles.footer}>
         <span className={styles.footerText}>© 2025 Ofício Brasil</span>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

@@ -191,3 +191,11 @@
 }
 
 .loading { color: var(--text-muted); font-size: 13px; }
+
+/* ===== Responsivo ===== */
+@media (max-width: 560px) {
+  .card { padding: 16px; }
+  .lessonItem { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .formActions { justify-content: stretch; }
+  .primary { width: 100%; }
+}

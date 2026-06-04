@@ -73,3 +73,38 @@
   border-color: var(--danger);
   color: var(--danger);
 }
+
+/* ===== Botão de menu mobile ===== */
+.leftZone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.menuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.menuBtn svg { width: 18px; height: 18px; }
+.menuBtn:hover { background: var(--bg-card); border-color: #f59e0b; }
+
+@media (max-width: 768px) {
+  .header { padding: 0 14px; }
+  .menuBtn { display: inline-flex; }
+}
+
+@media (max-width: 480px) {
+  .greeting { display: none; }
+}

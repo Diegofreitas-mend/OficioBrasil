@@ -167,3 +167,12 @@
 }
 
 .error { color: var(--danger); }
+
+/* ===== Responsivo ===== */
+@media (max-width: 900px) {
+  .page { grid-template-columns: 1fr; }
+  .sidebar { position: static; top: auto; }
+}
+@media (max-width: 640px) {
+  .lessonTitle { font-size: 22px; }
+}

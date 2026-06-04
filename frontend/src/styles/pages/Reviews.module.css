@@ -71,3 +71,9 @@
 }
 
 .error { color: var(--danger); }
+
+/* ===== Responsivo ===== */
+@media (max-width: 560px) {
+  .pageTitle { font-size: 22px; }
+  .cardHeader { flex-direction: column; }
+}

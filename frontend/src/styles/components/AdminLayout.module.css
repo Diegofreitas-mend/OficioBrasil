@@ -17,3 +17,9 @@
   padding: 28px;
   overflow-y: auto;
 }
+
+/* ===== Responsivo (mobile) ===== */
+@media (max-width: 768px) {
+  .main { margin-left: 0; }
+  .content { padding: 16px; }
+}

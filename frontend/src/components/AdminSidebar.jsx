@@ -48,9 +48,15 @@ const NAV = [
   },
 ];
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ open = false, onClose }) {
   return (
-    <aside className={styles.sidebar}>
+    <>
+      <div
+        className={`${styles.backdrop} ${open ? styles.backdropShow : ''}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <aside className={`${styles.sidebar} ${open ? styles.open : ''}`}>
       <div className={styles.logo}>
         <div className={styles.logoMark}>O</div>
         <div className={styles.logoText}>
@@ -78,6 +84,7 @@ export default function AdminSidebar() {
       <div className={styles.footer}>
         <span className={styles.footerText}>Modo administrador</span>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

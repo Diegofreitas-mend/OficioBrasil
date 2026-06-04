@@ -102,3 +102,9 @@
 
 .loading, .error { color: var(--text-muted); font-size: 13px; }
 .error { color: var(--danger); }
+
+/* ===== Responsivo ===== */
+@media (max-width: 560px) {
+  .itemHead { flex-direction: column; gap: 6px; }
+  .itemFoot { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
