@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import ProgressBar from './ProgressBar.jsx';
+import Rating from './Rating.jsx';
 import { formatPrice } from '../utils/formatters.js';
 import { getCategory } from '../constants/categories.js';
 import styles from '../styles/components/CourseCard.module.css';
@@ -25,6 +26,7 @@ export default function CourseCard({ course }) {
           <span className={styles.metaItem}>·</span>
           <span className={styles.metaItem}>{course.duracaoTotal}</span>
         </div>
+        <Rating nota={course.notaMedia} total={course.totalAvaliacoes} />
       </div>
 
       <div className={styles.footer}>

@@ -27,6 +27,20 @@ async function getCompletedLessonIds(studentId) {
   return new Set((data ?? []).map((e) => e.lesson_id));
 }
 
+async function getCourseRating(courseId) {
+  const { data } = await supabase
+    .from('reviews')
+    .select('nota')
+    .eq('course_id', courseId);
+  const notas = (data ?? []).map((r) => r.nota);
+  if (notas.length === 0) return { notaMedia: 0, totalAvaliacoes: 0 };
+  const soma = notas.reduce((a, b) => a + b, 0);
+  return {
+    notaMedia: Math.round((soma / notas.length) * 10) / 10,
+    totalAvaliacoes: notas.length,
+  };
+}
+
 async function decorateCourse(course, opts) {
   const { studentId, enrolledIds, completedIds, withLessons } = opts;
   const { data: lessons } = await supabase
@@ -46,11 +60,14 @@ async function decorateCourse(course, opts) {
   });
 
   const progresso = totalAulas > 0 ? Math.round((concluidas / totalAulas) * 100) : 0;
+  const rating = await getCourseRating(course.id);
 
   return mapCourse(course, {
     totalAulas,
     comprado,
     progresso: comprado ? progresso : 0,
+    notaMedia: rating.notaMedia,
+    totalAvaliacoes: rating.totalAvaliacoes,
     ...(withLessons ? { lessons: lessonsDecorated } : {}),
   });
 }

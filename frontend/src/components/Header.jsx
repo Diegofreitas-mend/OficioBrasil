@@ -1,5 +1,8 @@
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import UserDataModal from './UserDataModal.jsx';
+import ChangeRequestModal from './ChangeRequestModal.jsx';
 import styles from '../styles/components/Header.module.css';
 
 const PAGE_LABELS = {
@@ -13,13 +16,37 @@ export default function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { student, logout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dataOpen, setDataOpen] = useState(false);
+  const [requestOpen, setRequestOpen] = useState(false);
+  const wrapRef = useRef(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setMenuOpen(false);
+    };
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false); };
+    window.addEventListener('mousedown', onClick);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('mousedown', onClick);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [menuOpen]);
 
   const handleLogout = () => {
+    setMenuOpen(false);
     logout();
     navigate('/login', { replace: true });
   };
 
+  const openData = () => { setMenuOpen(false); setDataOpen(true); };
+  const openRequest = () => { setMenuOpen(false); setRequestOpen(true); };
+  const goSettings = () => { setMenuOpen(false); navigate('/configuracoes'); };
+
   const pageLabel = PAGE_LABELS[pathname] ?? 'Curso';
+  const initial = student?.nome?.[0]?.toUpperCase() ?? '?';
 
   return (
     <header className={styles.header}>
@@ -28,22 +55,66 @@ export default function Header() {
         <span className={styles.pageTitle}>{pageLabel}</span>
       </div>
 
-      <div className={styles.right}>
-        {student && (
-          <span className={styles.greeting}>
-            Olá, <strong>{student.nome}</strong>
-          </span>
-        )}
-        <div className={styles.avatar}>{student ? student.nome[0] : '?'}</div>
+      <div className={styles.right} ref={wrapRef}>
         <button
           type="button"
-          className={styles.logoutBtn}
-          onClick={handleLogout}
-          aria-label="Sair"
+          className={styles.userBtn}
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-haspopup="menu"
+          aria-expanded={menuOpen}
         >
-          Sair
+          {student && (
+            <span className={styles.greeting}>
+              Olá, <strong>{student.nome.split(' ')[0]}</strong>
+            </span>
+          )}
+          <span className={styles.avatar}>{initial}</span>
+          <span className={`${styles.caret} ${menuOpen ? styles.caretUp : ''}`}>▾</span>
         </button>
+
+        {menuOpen && (
+          <div className={styles.menu} role="menu">
+            <div className={styles.menuHead}>
+              <span className={styles.menuName}>{student?.nome}</span>
+              <span className={styles.menuEmail}>{student?.email}</span>
+            </div>
+            <button type="button" className={styles.menuItem} onClick={openData} role="menuitem">
+              <span className={styles.menuIcon}>👤</span>
+              Meus dados
+            </button>
+            <button type="button" className={styles.menuItem} onClick={openRequest} role="menuitem">
+              <span className={styles.menuIcon}>✎</span>
+              Solicitar alterações
+            </button>
+            <button type="button" className={styles.menuItem} onClick={goSettings} role="menuitem">
+              <span className={styles.menuIcon}>⚙</span>
+              Configurações
+            </button>
+            <div className={styles.menuDivider} />
+            <button
+              type="button"
+              className={`${styles.menuItem} ${styles.menuDanger}`}
+              onClick={handleLogout}
+              role="menuitem"
+            >
+              <span className={styles.menuIcon}>⎋</span>
+              Sair
+            </button>
+          </div>
+        )}
       </div>
+
+      <UserDataModal
+        open={dataOpen}
+        onClose={() => setDataOpen(false)}
+        student={student}
+        onRequestChange={() => { setDataOpen(false); setRequestOpen(true); }}
+      />
+      <ChangeRequestModal
+        open={requestOpen}
+        onClose={() => setRequestOpen(false)}
+        student={student}
+      />
     </header>
   );
 }

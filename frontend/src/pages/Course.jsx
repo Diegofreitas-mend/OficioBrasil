@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useCourse } from '../hooks/useCourse.js';
 import { api } from '../services/api.js';
 import ProgressBar from '../components/ProgressBar.jsx';
+import Rating from '../components/Rating.jsx';
+import PurchaseModal from '../components/PurchaseModal.jsx';
 import { formatPrice } from '../utils/formatters.js';
 import { getCategory } from '../constants/categories.js';
 import styles from '../styles/pages/Course.module.css';
@@ -11,8 +13,10 @@ export default function Course() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { course, loading, error, refetch } = useCourse(id);
+  const [modalOpen, setModalOpen] = useState(false);
   const [enrolling, setEnrolling] = useState(false);
   const [enrollErr, setEnrollErr] = useState('');
+  const [success, setSuccess] = useState(false);
 
   if (loading) return <p className={styles.loading}>Carregando curso...</p>;
   if (error)   return <p className={styles.error}>{error}</p>;
@@ -28,11 +32,19 @@ export default function Course() {
     setEnrollErr('');
     try {
       await api.post(`/courses/${id}/enroll`);
-      await refetch();
+      setSuccess(true);
     } catch (e) {
       setEnrollErr(e.message);
     } finally {
       setEnrolling(false);
+    }
+  };
+
+  const closeModal = async () => {
+    setModalOpen(false);
+    if (success) {
+      setSuccess(false);
+      await refetch();
     }
   };
 
@@ -49,8 +61,27 @@ export default function Course() {
             <span className={styles.metaItem}>·</span>
             <span className={styles.metaItem}>{course.duracaoTotal}</span>
           </div>
+          <div className={styles.bannerRating}>
+            <Rating nota={course.notaMedia} total={course.totalAvaliacoes} size="md" />
+          </div>
         </div>
       </div>
+
+      {/* Compra (TOPO — apenas para cursos não adquiridos) */}
+      {!course.comprado && (
+        <div className={styles.buySection}>
+          <div className={styles.buyPrice}>
+            <span className={styles.buyLabel}>Valor do curso</span>
+            <span className={styles.buyValue}>{formatPrice(course.preco)}</span>
+          </div>
+          <button
+            className={styles.btnBuy}
+            onClick={() => setModalOpen(true)}
+          >
+            Adquirir Curso
+          </button>
+        </div>
+      )}
 
       {/* Progresso (apenas para cursos comprados) */}
       {course.comprado && (
@@ -99,25 +130,15 @@ export default function Course() {
         ))}
       </div>
 
-      {/* Compra (apenas para cursos não adquiridos) */}
-      {!course.comprado && (
-        <div className={styles.buySection}>
-          <div className={styles.buyPrice}>
-            <span className={styles.buyLabel}>Valor do curso</span>
-            <span className={styles.buyValue}>{formatPrice(course.preco)}</span>
-          </div>
-          <button
-            className={styles.btnBuy}
-            onClick={handleEnroll}
-            disabled={enrolling}
-          >
-            {enrolling ? 'Processando…' : 'Adquirir Curso'}
-          </button>
-          {enrollErr && (
-            <p style={{ color: 'var(--danger)', fontSize: 13, marginTop: 8 }}>{enrollErr}</p>
-          )}
-        </div>
-      )}
+      <PurchaseModal
+        open={modalOpen}
+        onClose={closeModal}
+        course={course}
+        onConfirm={handleEnroll}
+        loading={enrolling}
+        error={enrollErr}
+        success={success}
+      />
     </div>
   );
 }

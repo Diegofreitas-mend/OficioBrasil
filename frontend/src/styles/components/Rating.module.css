@@ -1,0 +1,57 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 1px;
+  letter-spacing: 1px;
+}
+
+.star {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.starFull {
+  color: #f5b400;
+}
+
+.starEmpty {
+  color: var(--text-dim);
+}
+
+.starHalf {
+  background: linear-gradient(90deg, #f5b400 50%, var(--text-dim) 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.value {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.count {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.empty {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+.md .star { font-size: 16px; }
+.md .value { font-size: 13px; }
+
+.lg .star { font-size: 20px; }
+.lg .value { font-size: 14px; }

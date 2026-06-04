@@ -12,6 +12,8 @@ export const mapCourse = (c, extras = {}) => ({
   totalAulas: extras.totalAulas ?? c.total_aulas ?? 0,
   comprado: extras.comprado ?? false,
   progresso: extras.progresso ?? 0,
+  notaMedia: extras.notaMedia ?? 0,
+  totalAvaliacoes: extras.totalAvaliacoes ?? 0,
   ...(extras.lessons ? { lessons: extras.lessons } : {}),
 });
 
